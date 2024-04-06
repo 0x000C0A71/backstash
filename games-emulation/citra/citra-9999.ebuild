@@ -1,6 +1,6 @@
 
 
-# This is 1:1 the last version that was available in guru.
+# This is the last version that was available in guru, modified to work.
 # The intent is to set an override on the repo uri and use one of the forks
 
 
@@ -111,7 +111,7 @@ src_prepare() {
 		-e '1ifind_package(PkgConfig REQUIRED)\npkg_check_modules(CRYPTOPP REQUIRED libcryptopp)' \
 		src/dedicated_room/CMakeLists.txt \
 		src/core/CMakeLists.txt || die
-	sed -i -e '/^# Crypto++/,/add_subdirectory(cryptopp-cmake)/d' externals/CMakeLists.txt || die
+	sed -i -e '/^# Crypto++/,/^endif()/d' externals/CMakeLists.txt || die
 
 	# Unbundle cubeb
 	sed -i -e '/CUBEB/,/endif()/d' externals/CMakeLists.txt || die
