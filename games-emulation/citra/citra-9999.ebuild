@@ -3,7 +3,7 @@
 # This is the last version that was available in guru, modified to work.
 # The intent is to set an override on the repo uri and use one of the forks
 
-
+# TODO: Remove zstd submodule
 
 # Copyright 2019-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
@@ -17,14 +17,15 @@ HOMEPAGE="https://citra-emu.org"
 EGIT_REPO_URI="https://github.com/citra-emu/citra"
 EGIT_SUBMODULES=(
 	'catch2' 'dds-ktx' 'discord-rpc' 'dynarmic' 'library-headers' 'libyuv'
-	'lodepng' 'nihstro' 'sirit' 'soundtouch' 'vma' 'xbyak'
+	'lodepng' 'nihstro' 'sirit' 'soundtouch' 'vma' 'xbyak' 'faad2' 'zstd'
 )
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="cubeb nls openal +gui sdl +system-libfmt +telemetry"
+IUSE="cubeb nls openal +gui sdl +system-libfmt +telemetry +vulkan opengl"
 
+# TODO: add `app-arch/zstd`
 RDEPEND="
 	cubeb? ( media-libs/cubeb )
 	media-video/ffmpeg:=[fdk]
@@ -37,7 +38,6 @@ RDEPEND="
 	)
 	system-libfmt? ( >=dev-libs/libfmt-9:= )
 	>=dev-libs/openssl-1.1:=
-	app-arch/zstd
 	dev-libs/boost:=
 	dev-libs/crypto++:=
 	dev-libs/teakra
@@ -64,7 +64,7 @@ src_unpack() {
 	cp -a "${S}"/externals/xbyak "${S}"/externals/dynarmic/externals/ || die
 
 	# Do not fetch via sources because this file always changes
-	curl https://api.citra-emu.org/gamedb/ > "${S}"/compatibility_list.json
+	#curl https://api.citra-emu.org/gamedb/ > "${S}"/compatibility_list.json
 }
 
 src_prepare() {
@@ -76,59 +76,8 @@ src_prepare() {
 	# Do not care about submodules wanted one are already fetched
 	sed -i -e '/check_submodules_present()/d' CMakeLists.txt || die
 
-	# Unbundle inih
-	sed -i -e '/inih/d' externals/CMakeLists.txt || die
-	sed -i -e '1ifind_package(PkgConfig REQUIRED)\npkg_check_modules(INIH REQUIRED INIReader)' \
-		-e '/target_link_libraries/s/inih/${INIH_LIBRARIES}/' src/citra/CMakeLists.txt || die
-	sed -i -e 's:inih/cpp/::' src/citra/config.cpp || die
-
-	# Unbundle libfmt
-	if use system-libfmt; then
-		sed -i -e '/fmt/d' externals/CMakeLists.txt || die
-		sed -i -e '/find_package(Threads/afind_package(fmt)' CMakeLists.txt || die
-	else
-		sed -i -e '/FMT_INSTALL/d' externals/dynarmic/externals/CMakeLists.txt || die
-	fi
-
 	# Unbundle teakra
 	sed -i -e '/teakra/d' externals/CMakeLists.txt || die
-
-	# Unbundle zstd
-	sed -i -e 's:libzstd_static:${ZSTD_LIBRARIES}:' \
-		-e '1ifind_package(PkgConfig REQUIRED)\npkg_check_modules(ZSTD REQUIRED libzstd)' \
-		src/common/CMakeLists.txt || die
-	sed -i -e '/zstd/d' externals/CMakeLists.txt || die
-
-	# Unbundle enet
-	sed -i -e 's:enet:${ENET_LIBRARIES}:' \
-		-e '1ifind_package(PkgConfig REQUIRED)\npkg_check_modules(ENET REQUIRED libenet)' \
-		src/network/CMakeLists.txt || die
-	sed -i -e '/#include.*enet/{s/"/</;s/"/>/}' src/network/*cpp || die
-	sed -i -e '/enet/d' externals/CMakeLists.txt || die
-
-	# Unbundle crypto++
-	sed -i -e 's:cryptopp:${CRYPTOPP_LIBRARIES}:' \
-		-e '1ifind_package(PkgConfig REQUIRED)\npkg_check_modules(CRYPTOPP REQUIRED libcryptopp)' \
-		src/dedicated_room/CMakeLists.txt \
-		src/core/CMakeLists.txt || die
-	sed -i -e '/^# Crypto++/,/^endif()/d' externals/CMakeLists.txt || die
-
-	# Unbundle cubeb
-	sed -i -e '/CUBEB/,/endif()/d' externals/CMakeLists.txt || die
-	if use cubeb; then
-		sed -i -e '$afind_package(cubeb REQUIRED)\n' CMakeLists.txt || die
-	fi
-	# Unbundle cpp-jwt
-	sed -i -e '/cpp-jwt/d' externals/CMakeLists.txt || die
-	sed -i -e 's/ cpp-jwt/ ssl crypto/' src/web_service/CMakeLists.txt || die
-
-	# Unbundle xbyak
-	sed -i -e '/^install(/,/^)$/d' externals/xbyak/CMakeLists.txt || die
-
-	# glslang
-	sed -i -e '/^# glslang/,/(glslang)/d' externals/CMakeLists.txt || die
-	sed -i -e 's:SPIRV/GlslangToSpv.h:glslang/&:' src/video_core/renderer_vulkan/vk_shader_util.cpp || die
-	sed -i -e '/target_include_directories(vulkan-headers/d' externals/CMakeLists.txt || die
 
 	# Do not install dynarmic
 	sed -i -e '/^# Install/,$d' externals/dynarmic/CMakeLists.txt || die
@@ -164,11 +113,22 @@ src_configure() {
 		-DUSE_SYSTEM_LIBUSB=ON
 		-DUSE_SYSTEM_OPENSSL=ON
 		-DUSE_SYSTEM_SDL2=ON
+		-DUSE_SYSTEM_INIH=ON
+		-DUSE_SYSTEM_FMT=$(usex system-libfmt)
+		-DUSE_SYSTEM_ZSTD=OFF
+		-DUSE_SYSTEM_ENET=ON
+		-DUSE_SYSTEM_CRYPTOPP=ON
+		-DUSE_SYSTEM_CUBEB=ON
+		-DUSE_SYSTEM_CPP_JWT=ON
+		-DUSE_SYSTEM_FMT=ON
+		-DUSE_SYSTEM_GLSLANG=ON
+		-DENABLE_VULKAN=$(usex vulkan)
+		-DENABLE_OPENGL=$(usex opengl)
 	)
 	cmake_src_configure
 
 	# This would be better in src_unpack but it would be unlinked
-	mv "${S}"/compatibility_list.json "${BUILD_DIR}"/dist/compatibility_list/ || die
+	#mv "${S}"/compatibility_list.json "${BUILD_DIR}"/dist/compatibility_list/ || die
 }
 
 src_install() {
