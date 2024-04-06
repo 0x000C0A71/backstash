@@ -6,7 +6,7 @@ EAPI=8
 DESCRIPTION="A meta package to install most of my desktop setup"
 SLOT="0"
 KEYWORDS="amd64"
-IUSE=""
+IUSE="+gnome"
 
 RDEPEND="
 	app-admin/sudo
@@ -16,10 +16,13 @@ RDEPEND="
 	app-portage/gentoolkit
 	app-shells/zsh
 	gnome-extra/polkit-gnome
+	gnome? ( gnome-base/nautilus )
+	gnome? ( media-gfx/eog )
+	gnome? ( media-video/totem )
 	gui-apps/grim
 	gui-apps/hyprpaper
+	gui-apps/mako
 	gui-apps/slurp
-	gnome-base/nautilus
 	gui-apps/waybar
 	gui-apps/wl-clipboard
 	gui-apps/wofi
@@ -35,7 +38,6 @@ RDEPEND="
 	media-fonts/noto-emoji
 	media-fonts/source-code-pro
 	sys-process/btop
-	x11-misc/dunst
 	x11-terms/kitty
 	x11-themes/gnome-themes-standard
 "
