@@ -13,7 +13,7 @@ SRC_URI="
 	https://github.com/starfive-tech/soft_3rdpart/archive/refs/tags/${VF2_TAG}.tar.gz -> soft_3rdpart-${VF2_TAG}.tar.gz
 "
 
-S="soft_3rdpart-${VF2_TAG}"
+S="${WORKDIR}/soft_3rdpart-${VF2_TAG}"
 
 IUSE="dist-kernel"
 LICENSE=""
