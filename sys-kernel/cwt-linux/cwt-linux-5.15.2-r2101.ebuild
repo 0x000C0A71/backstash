@@ -7,10 +7,14 @@ KERNEL_IUSE_MODULES_SIGN=true
 
 inherit kernel-build
 
-VF2_TAG="JH7110_VF2_515_v${PV}"
+CWT_VER="21"
+SDK_VER="5.11.3"
+
+VF2_TAG="JH7110_VF2_515_v${SDK_VER}"
+KV_LOCALVERSION="-cwt${CWT_VER}-v${SDK_VER}"
 
 DESCRIPTION="Linux 5.15.x (-cwt) for StarFive RISC-V VisionFive 2 Board"
-HOMEPAGE=""
+HOMEPAGE="https://github.com/cwt-vf2/linux-cwt-starfive-vf2"
 SRC_URI="
 	https://github.com/starfive-tech/linux/archive/refs/tags/${VF2_TAG}.tar.gz
 "
@@ -46,8 +50,6 @@ PATCHES=(
 	"${FILESDIR}/linux-09-fix_promisc_ethernet_driver_armbian.patch"
 	"${FILESDIR}/linux-10-fix_unknown_relocation_type_57.patch"
 )
-
-KV_LOCALVERSION="-cwt"
 
 src_prepare() {
 	einfo "Copying over default config"
