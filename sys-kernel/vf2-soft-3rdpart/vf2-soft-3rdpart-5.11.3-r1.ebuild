@@ -15,6 +15,7 @@ SRC_URI="
 
 S="soft_3rdpart-${VF2_TAG}"
 
+IUSE="dist-kernel"
 LICENSE=""
 SLOT="0"
 KEYWORDS="~riscv"

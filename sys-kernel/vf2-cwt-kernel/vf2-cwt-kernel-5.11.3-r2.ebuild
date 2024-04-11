@@ -17,7 +17,15 @@ SRC_URI="
 
 S="${WORKDIR}/linux-${VF2_TAG}"
 
-IUSE="debug +modules-sign +initramfs"
+IUSE="
+	debug
+	+initramfs
+	+modules-sign
+	savedconfig
+	secureboot
+	+strip
+	test
+"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~riscv"
