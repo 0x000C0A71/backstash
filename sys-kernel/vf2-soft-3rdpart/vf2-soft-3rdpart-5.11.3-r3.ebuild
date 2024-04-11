@@ -15,7 +15,7 @@ SRC_URI="
 
 S="${WORKDIR}/soft_3rdpart-${VF2_TAG}"
 
-IUSE="dist-kernel"
+IUSE="dist-kernel +modules-sign"
 LICENSE=""
 SLOT="0"
 KEYWORDS="~riscv"
@@ -39,32 +39,39 @@ MODULE_NAMES="
 	vdec(extra:${SRC_VDEC}:${SRC_VDEC})
 "
 
+BUILD_TARGETS="clean default"
+BUILD_PARAMS="KERNELDIR='${KERNEL_DIR}'"
+
 
 src_install() {
 	linux-mod_src_install
 
+	if use modules-sign; then
+		elog "Signing modules..."
 
-	elog "Signing modules..."
+		sign_script="${KERNEL_DIR}/scripts/sign-file"
+		key_pem="${KERNEL_DIR}/certs/signing_key.pem"
+		key_x509="${KERNEL_DIR}/certs/signing_key.x509"
 
-	sign_script="${KERNEL_DIR}/scripts/sign-file"
-	key_pem="${KERNEL_DIR}/certs/signing_key.pem"
-	key_x509="${KERNEL_DIR}/certs/signing_key.x509"
+		[[ -f "${sign_script}" ]] || die "sign script does not exist"
+		[[ -f "${key_pem}"     ]] || die "pem key does not exist"
+		[[ -f "${key_x509}"    ]] || die "x509 key does not exist"
 
-	ins_dir="${INSTALL_MOD_PATH}/lib/modules/${KV_FULL}/extra"
+		ins_dir="${INSTALL_MOD_PATH}/lib/modules/${KV_FULL}/extra"
 
-	einfo "Signing JPU"
-	$sign_script sha1 $key_pem $key_x509 "${ins_dir}/jpu.ko" \
-		|| die "Failed to sign JPU"
+		einfo "Signing JPU"
+		$sign_script sha1 $key_pem $key_x509 "${ins_dir}/jpu.ko" \
+			|| die "Failed to sign JPU"
 
-	einfo "Signing VENC"
-	$sign_script sha1 $key_pem $key_x509 "${ins_dir}/venc.ko" \
-		|| die "Failed to sign VENC"
+		einfo "Signing VENC"
+		$sign_script sha1 $key_pem $key_x509 "${ins_dir}/venc.ko" \
+			|| die "Failed to sign VENC"
 
-	einfo "Signing VDEC"
-	$sign_script sha1 $key_pem $key_x509 "${ins_dir}/jpu.ko" \
-		|| die "Failed to sign JPU"
+		einfo "Signing VDEC"
+		$sign_script sha1 $key_pem $key_x509 "${ins_dir}/jpu.ko" \
+			|| die "Failed to sign JPU"
 
-
+	fi
 
 
 	elog "Installing firmware"
