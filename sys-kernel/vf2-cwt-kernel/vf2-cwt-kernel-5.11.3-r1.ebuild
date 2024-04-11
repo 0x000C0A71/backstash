@@ -3,6 +3,8 @@
 
 EAPI=8
 
+KERNEL_IUSE_MODULES_SIGN=true
+
 inherit kernel-build
 
 VF2_TAG="JH7110_VF2_515_v${PV}"
@@ -15,7 +17,8 @@ SRC_URI="
 
 S="${WORKDIR}/linux-${VF2_TAG}"
 
-LICENSE=""
+IUSE="debug +modules-sign +initramfs"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~riscv"
 
