@@ -1,0 +1,16 @@
+BDEPEND=virtual/pkgconfig >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install unpack
+DEPEND=media-libs/libsdl2[vulkan] media-libs/vulkan-loader x11-libs/libX11 flac? ( media-libs/flac ) mad? ( media-libs/libmad ) mpg123? ( media-sound/mpg123 ) tremor? ( media-libs/tremor ) vorbis? ( media-libs/libvorbis ) mikmod? ( media-libs/libmikmod ) modplug? ( media-libs/libmodplug )
+DESCRIPTION=Vulkan Quake port based on QuakeSpasm
+EAPI=7
+HOMEPAGE=https://github.com/Novum/vkQuake
+INHERIT=git-r3
+IUSE=+wav flac opus modplug mikmod xmp umx +mad mpg123 +vorbis tremor
+KEYWORDS=amd64 x86
+LICENSE=GPL-2+
+PROPERTIES=live
+RDEPEND=media-libs/libsdl2[vulkan] media-libs/vulkan-loader x11-libs/libX11 flac? ( media-libs/flac ) mad? ( media-libs/libmad ) mpg123? ( media-sound/mpg123 ) tremor? ( media-libs/tremor ) vorbis? ( media-libs/libvorbis ) mikmod? ( media-libs/libmikmod ) modplug? ( media-libs/libmodplug )
+REQUIRED_USE=^^ ( mad mpg123 ) ^^ ( vorbis tremor ) ^^ ( modplug mikmod xmp umx )
+SLOT=0
+_eclasses_=git-r3	fbb2889c81f3a05910c1524db69425c1
+_md5_=bcab74a19b473ac010e4990c4dd82aad
