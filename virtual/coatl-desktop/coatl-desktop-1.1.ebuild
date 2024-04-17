@@ -6,11 +6,11 @@ EAPI=8
 DESCRIPTION="A meta package to install most of my desktop setup"
 SLOT="0"
 KEYWORDS="amd64"
-IUSE="+gnome"
+IUSE="+gnome +binpkgs"
 
 RDEPEND="
 	app-admin/sudo
-	app-editors/sublime-text
+	binpkgs? (app-editors/sublime-text)
 	app-editors/vim
 	app-misc/neofetch
 	app-portage/gentoolkit
