@@ -14,6 +14,7 @@ SRC_URI="
 	wave5? ( https://gitlab.collabora.com/chipsnmedia/linux-firmware/-/raw/cnm/cnm/wave511_dec_fw.bin )
 "
 
+S="${WORKDIR}/${vf2_tag}"
 
 LICENSE=""
 SLOT="0"
