@@ -7,14 +7,15 @@ IUSE="+pvr-gpu +wifi +bluetooth +wave5"
 
 vf2_tag="JH7110_VF2_515_v${PV}"
 
+chipsmedia_version="20210511"
+
 DESCRIPTION=""
 HOMEPAGE=""
 SRC_URI="
-	https://github.com/starfive-tech/buildroot/archive/refs/tags/${vf2_tag}.tar.gz
-	wave5? ( https://gitlab.collabora.com/chipsnmedia/linux-firmware/-/raw/cnm/cnm/wave511_dec_fw.bin )
+	https://github.com/starfive-tech/buildroot/archive/refs/tags/${vf2_tag}.tar.gz -> buildroot-${vf2_tag}.tar.gz
 "
 
-S="${WORKDIR}/${vf2_tag}"
+S="${WORKDIR}/buildroot-${vf2_tag}"
 
 LICENSE=""
 SLOT="0"
@@ -22,6 +23,7 @@ KEYWORDS="~riscv"
 
 DEPEND="
 	pvr-gpu? ( sys-firmware/vf2-pvr-firmware )
+	wave5? ( sys-firmware/vf2-wave5-firmware )
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
@@ -47,13 +49,6 @@ src_install() {
 
 		doins ${fw_path}/ap6256-bluetooth/BCM4345C5.hcd
 		doins ${fw_path}/rtl8852bu-bluetooth/*
-	fi
-
-	# Wave5 firmware
-	if use Wave5; then
-		insinto /lib/firmware
-
-		doins ${WORKDIR}/wave511_dec_fw.bin
 	fi
 
 }

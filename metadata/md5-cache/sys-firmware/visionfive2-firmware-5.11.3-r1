@@ -1,9 +1,0 @@
-DEFINED_PHASES=install
-DEPEND=pvr-gpu? ( sys-firmware/vf2-pvr-firmware )
-EAPI=8
-IUSE=+pvr-gpu +wifi +bluetooth +wave5
-KEYWORDS=~riscv
-RDEPEND=pvr-gpu? ( sys-firmware/vf2-pvr-firmware )
-SLOT=0
-SRC_URI=https://github.com/starfive-tech/buildroot/archive/refs/tags/JH7110_VF2_515_v5.11.3.tar.gz wave5? ( https://gitlab.collabora.com/chipsnmedia/linux-firmware/-/raw/cnm/cnm/wave511_dec_fw.bin )
-_md5_=7194f822dbf045e1ede3975ff3f9fd8e

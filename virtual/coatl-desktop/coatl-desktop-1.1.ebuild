@@ -10,7 +10,7 @@ IUSE="+gnome +binpkgs"
 
 RDEPEND="
 	app-admin/sudo
-	binpkgs? (app-editors/sublime-text)
+	binpkgs? ( app-editors/sublime-text )
 	app-editors/vim
 	app-misc/neofetch
 	app-portage/gentoolkit
