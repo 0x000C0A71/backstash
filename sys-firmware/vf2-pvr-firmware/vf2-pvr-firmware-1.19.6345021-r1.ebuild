@@ -6,8 +6,10 @@ EAPI=8
 DESCRIPTION="Firmware for the IMG_GPU provided by starfive"
 HOMEPAGE=""
 SRC_URI="
-	https://github.com/starfive-tech/soft_3rdpart/raw/JH7110_VisionFive2_devel/IMG_GPU/out/img-gpu-powervr-bin-${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/starfive-tech/soft_3rdpart/raw/JH7110_VisionFive2_devel/IMG_GPU/out/img-gpu-powervr-bin-${PV}.tar.gz
 "
+
+S="${WORKDIR}/img-gpu-powervr-bin-${PV}"
 
 LICENSE=""
 SLOT="0"
