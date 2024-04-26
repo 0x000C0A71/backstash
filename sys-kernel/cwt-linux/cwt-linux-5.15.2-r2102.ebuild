@@ -29,12 +29,16 @@ IUSE="
 	secureboot
 	+strip
 	test
+	+dracut
 "
+REQUIRED_USE="dracut"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~riscv"
 
-DEPEND=""
+DEPEND="
+	sys-kernel/installkernel[dracut]
+"
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
