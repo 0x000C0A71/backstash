@@ -25,5 +25,8 @@ src_install() {
 
 	doins target/lib/firmware/rgx.fw.36.50.54.182
 	doins target/lib/firmware/rgx.sh.36.50.54.182
+
+	insinto /etc/dracut.conf.d
+	doins ${FILESDIR}/dracut-pvr-fw.conf
 }
 
