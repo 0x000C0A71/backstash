@@ -40,6 +40,8 @@ src_install() {
 
 	# wifi firmware
 	if use wifi; then
+		einfo "installing wifi firmware..."
+
 		insinto /lib/firmware
 
 		doins ${fw_path}/ECR6600U-usb-wifi/ECR6600U_transport.bin
@@ -47,14 +49,32 @@ src_install() {
 
 		doins -r ${fw_path}/aic8800-usb-wifi/aic8800
 		doins -r ${fw_path}/aic8800-usb-wifi/aic8800DC
+
+		einfo "installing wifi configs..."
+		insinto /etc/dracut.conf.d
+		doins ${FILESDIR}/dracut-conf-vf2fw-wifi.conf
 	fi
 
 	# bluetooth firmware
 	if use bluetooth; then
+		einfo "installing bluetooth firmware..."
+
 		insinto /lib/firmware
 
 		doins ${fw_path}/ap6256-bluetooth/BCM4345C5.hcd
 		doins ${fw_path}/rtl8852bu-bluetooth/*
+
+
+		einfo "installing bluetooth configs..."
+		insinto /etc/dracut.conf.d
+		doins ${FILESDIR}/dracut-conf-vf2fw-bluetooth.conf
+
+		# TODO:
+		#   There is an init script
+		#   `${fw_path}/ap6256-bluetooth/S36ap6256-bluetooth`
+		#   to be installed into `/etc/init.d/`. This is skipped
+		#   for now, as I am not 100% sure for what init system
+		#   that script is designed
 	fi
 
 }
