@@ -17,6 +17,14 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+src_configure() {
+	einfo "This package has no configure step"
+}
+
+src_compile() {
+	einfo "This package has no compile step"
+}
+
 src_install() {
 	insinto /lib/firmware
 	doins cnm/wave511_dec_fw.bin

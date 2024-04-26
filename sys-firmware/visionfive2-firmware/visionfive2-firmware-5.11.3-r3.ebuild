@@ -7,8 +7,6 @@ IUSE="+pvr-gpu +wifi +bluetooth +wave5"
 
 vf2_tag="JH7110_VF2_515_v${PV}"
 
-chipsmedia_version="20210511"
-
 DESCRIPTION=""
 HOMEPAGE=""
 SRC_URI="
@@ -29,6 +27,14 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 fw_path="package/starfive/starfive-firmware"
+
+src_configure() {
+	einfo "This package has no configure step"
+}
+
+src_compile() {
+	einfo "This package has no compile step"
+}
 
 src_install() {
 
