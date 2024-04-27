@@ -57,8 +57,8 @@ src_install() {
 	doins target/usr/lib/libGLESv2_PVR_MESA.so
 	doins target/usr/lib/libsrv_um.so
 	doins target/usr/lib/libPVROCL.so.1
-	doins target/usr/lib/libGLESv1_CM.so.1
-	doins target/usr/lib/libGLESv1_CM.so
+	#doins target/usr/lib/libGLESv1_CM.so.1
+	#doins target/usr/lib/libGLESv1_CM.so
 	doins target/usr/lib/libVK_IMG.so.1
 	doins target/usr/lib/libusc.so
 
