@@ -88,5 +88,7 @@ src_install() {
 
 	insinto /etc
 	doins -r target/etc/OpenCL/
+	
+	insinto /usr/share
 	doins -r target/etc/vulkan/
 }
