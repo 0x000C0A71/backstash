@@ -535,7 +535,6 @@ multilib_src_configure() {
 		-Dvalgrind=$(usex valgrind auto disabled)
 		-Dgallium-drivers=$(driver_list "${GALLIUM_DRIVERS[*]}")
 		-Dvulkan-drivers=$(driver_list "${VULKAN_DRIVERS[*]}")
-		#--buildtype $(usex debug debug plain)
 		-Db_ndebug=$(usex debug false true)
 	)
 	meson_src_configure

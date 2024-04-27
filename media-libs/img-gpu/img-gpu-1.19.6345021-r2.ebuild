@@ -22,7 +22,7 @@ SLOT="0"
 KEYWORDS="~riscv"
 
 DEPEND="
-	sys-firmware/vf2-pvr-firmware-${PV}
+	>=sys-firmware/vf2-pvr-firmware-${PV}
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
