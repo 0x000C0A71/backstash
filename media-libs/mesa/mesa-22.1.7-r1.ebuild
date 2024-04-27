@@ -103,20 +103,11 @@ RDEPEND="${RDEPEND}
 # 1. List all the working slots (with min versions) in ||, newest first.
 # 2. Update the := to specify *max* version, e.g. < 10.
 # 3. Specify LLVM_MAX_SLOT, e.g. 9.
-#LLVM_MAX_SLOT="14"
-#LLVM_DEPSTR="
-#	|| (
-#		sys-devel/llvm:14[${MULTILIB_USEDEP}]
-#		sys-devel/llvm:13[${MULTILIB_USEDEP}]
-#	)
-#	<sys-devel/llvm-$((LLVM_MAX_SLOT + 1)):=[${MULTILIB_USEDEP}]
-#"
-LLVM_MAX_SLOT="17"
+LLVM_MAX_SLOT="14"
 LLVM_DEPSTR="
 	|| (
 		sys-devel/llvm:14[${MULTILIB_USEDEP}]
 		sys-devel/llvm:13[${MULTILIB_USEDEP}]
-		sys-devel/llvm:17[${MULTILIB_USEDEP}]
 	)
 	<sys-devel/llvm-$((LLVM_MAX_SLOT + 1)):=[${MULTILIB_USEDEP}]
 "
@@ -207,7 +198,6 @@ QA_WX_LOAD=""
 
 
 # TODO: Add depend on pvr WSI library
-# TODO: fix llvm dependecy again
 
 PATCHES=(
 	"${FILESDIR}/0001-Add-PVR-Gallium-driver.patch"
