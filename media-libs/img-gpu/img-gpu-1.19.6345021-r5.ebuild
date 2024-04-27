@@ -28,22 +28,21 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_install() {
-	into /usr/lib64
 	insinto /usr/lib64
 	exeinto /usr/bin
 
 	# libraries
-	dolib.so target/usr/lib/libglslcompiler.so.${PV}
-	dolib.so target/usr/lib/libpvr_dri_support.so.${PV}
-	dolib.so target/usr/lib/libsrv_um.so.${PV}
-	dolib.so target/usr/lib/libsutu_display.so.${PV}
-	dolib.so target/usr/lib/libGLESv1_CM_PVR_MESA.so.${PV}
-	dolib.so target/usr/lib/libPVROCL.so.${PV}
-	dolib.so target/usr/lib/libPVRScopeServices.so.${PV}
-	dolib.so target/usr/lib/libufwriter.so.${PV}
-	dolib.so target/usr/lib/libusc.so.${PV}
-	dolib.so target/usr/lib/libVK_IMG.so.${PV}
-	dolib.so target/usr/lib/libGLESv2_PVR_MESA.so.${PV}
+	doins target/usr/lib/libglslcompiler.so.${PV}
+	doins target/usr/lib/libpvr_dri_support.so.${PV}
+	doins target/usr/lib/libsrv_um.so.${PV}
+	doins target/usr/lib/libsutu_display.so.${PV}
+	doins target/usr/lib/libGLESv1_CM_PVR_MESA.so.${PV}
+	doins target/usr/lib/libPVROCL.so.${PV}
+	doins target/usr/lib/libPVRScopeServices.so.${PV}
+	doins target/usr/lib/libufwriter.so.${PV}
+	doins target/usr/lib/libusc.so.${PV}
+	doins target/usr/lib/libVK_IMG.so.${PV}
+	doins target/usr/lib/libGLESv2_PVR_MESA.so.${PV}
 
 	# Symlinks
 	doins target/usr/lib/libPVROCL.so
