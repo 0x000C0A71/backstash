@@ -77,7 +77,7 @@ src_install() {
 		doexe target/usr/local/bin/pvr_mutex_perf_test_mx
 		doexe target/usr/local/bin/rogue2d_fbctest
 		doexe target/usr/local/bin/rgx_twiddling_test
-		doexe target/usr/local/bin/hwperfjsonmerge
+		doexe target/usr/local/bin/hwperfjsonmerge.py
 		doexe target/usr/local/bin/rgx_blit_test
 		doexe target/usr/local/bin/ocl_extended_test
 		doexe target/usr/local/bin/pvrtld
