@@ -43,6 +43,7 @@ src_install() {
 	doins target/usr/lib/libusc.so.${PV}
 	doins target/usr/lib/libVK_IMG.so.${PV}
 	doins target/usr/lib/libGLESv2_PVR_MESA.so.${PV}
+	#doins target/usr/lib/libvulkan.so.${PV}
 
 	# Symlinks
 	doins target/usr/lib/libPVROCL.so
