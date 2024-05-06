@@ -1,0 +1,17 @@
+BDEPEND=app-arch/unzip <dev-lang/haxe-4.3 sys-apps/coreutils sys-devel/gcc sys-devel/binutils dev-lang/haxe
+DEFINED_PHASES=compile install postinst postrm prepare pretend setup unpack
+DEPEND=X? ( x11-libs/libX11 ) alsa? ( media-libs/alsa-lib ) pulseaudio? ( media-sound/pulseaudio )
+DESCRIPTION=A rhythm game made with HaxeFlixel
+EAPI=8
+HOMEPAGE=https://github.com/FunkinCrew/Funkin
+INHERIT=check-reqs desktop hxcpp xdg-utils
+IUSE=+X +alsa +lime-debug lime-final lime-release pulseaudio utau
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=X? ( x11-libs/libX11 ) alsa? ( media-libs/alsa-lib ) pulseaudio? ( media-sound/pulseaudio )
+REQUIRED_USE=X alsa || ( lime-debug lime-final lime-release ) lime-debug? ( !lime-final !lime-release ) lime-final? ( !lime-debug !lime-release ) lime-release? ( !lime-debug !lime-final )
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://github.com/MagelessMayhem/Funkin/releases/download/v0.2.7.1-vf-vanilla/Funkin-VF.tar.gz https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/flixel-4,11,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/newgrounds-1,1,5.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/hxcpp-4,2,1.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/flixel-ui-2,5,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/openfl-9,1,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/lime-8,0,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/hscript-2,5,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/polymod-1,6,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/lime-tools-1,5,7.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/lime-samples-7,0,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/flixel-addons-3,0,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/flixel-tools-1,5,1.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/flixel-demos-2,9,0.zip https://haxelib-tr40bgq5.fra1.cdn.digitaloceanspaces.com/files/3.0/flixel-templates-2,6,6.zip https://github.com/MagelessMayhem/discord-rpc/releases/download/1.0.0/discord_rpc.zip utau? ( https://github.com/MagelessMayhem/vanilla-funkaloid/releases/download/v1.0.0/utau-covers.tar.gz )
+_eclasses_=check-reqs	02ac7654b64f7acc7a8b1a35ad9d6ddc	desktop	021728fdc1b03b36357dbc89489e0f0d	hxcpp	47b4bbf3b44be76a567ede6b9a2df33a	xdg-utils	baea6080dd821f5562d715887954c9d3
+_md5_=fe3bf28aa329294e52a0df211e73a684
