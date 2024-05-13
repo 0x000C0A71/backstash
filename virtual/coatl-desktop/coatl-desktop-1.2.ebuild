@@ -32,7 +32,7 @@ RDEPEND="
 	media-fonts/corefonts
 	media-fonts/fonts-meta
 	media-fonts/inter
-	media-fonts/nerd-fonts
+	media-fonts/nerdfonts
 	media-fonts/noto
 	media-fonts/noto-cjk
 	media-fonts/noto-emoji
