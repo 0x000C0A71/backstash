@@ -1,0 +1,13 @@
+diff --git a/daemon/CMakeLists.txt b/daemon/CMakeLists.txt
+index c03ec08d..cbab43c3 100644
+--- a/daemon/CMakeLists.txt
++++ b/daemon/CMakeLists.txt
+@@ -281,6 +281,8 @@ if (NOT NACL)
+     endif()
+ endif()
+ 
++unset(DEPS_DIR)
++
+ ################################################################################
+ # Compile and link flags
+ ################################################################################

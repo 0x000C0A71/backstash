@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6b5ed8d..06a1eb2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -82,6 +82,9 @@ include(src.cmake)
+ option(BUILD_CGAME "Build client-side gamelogic" 1)
+ option(BUILD_SGAME "Build server-side gamelogic" 1)
+ 
++include(CMakePrintHelpers)
++cmake_print_variables(RECASTLIST)
++
+ if (BUILD_CGAME AND (BUILD_GAME_NATIVE_DLL OR BUILD_GAME_NATIVE_EXE OR NACL))
+     if (NACL)
+         set(FREETYPE_LIBRARY ${DEPS_DIR}/pnacl_deps/lib/libfreetype.a)
