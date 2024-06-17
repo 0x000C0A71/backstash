@@ -3,7 +3,7 @@
 
 EAPI=8
 
-MODULES_INITRAMFS_IUSE=1
+MODULES_INITRAMFS_IUSE="+initramfs"
 
 inherit linux-mod-r1 udev
 
