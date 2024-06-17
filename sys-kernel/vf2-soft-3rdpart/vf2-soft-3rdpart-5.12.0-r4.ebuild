@@ -3,7 +3,9 @@
 
 EAPI=8
 
-inherit linux-mod udev
+MODULES_INITRAMFS_IUSE=1
+
+inherit linux-mod-r1 udev
 
 VF2_TAG="JH7110_VF2_6.6_v${PV}"
 
@@ -15,7 +17,7 @@ SRC_URI="
 
 S="${WORKDIR}/soft_3rdpart-${VF2_TAG}"
 
-IUSE="dist-kernel modules-sign"
+#IUSE="dist-kernel modules-sign"
 LICENSE=""
 SLOT="0"
 KEYWORDS="~riscv"
@@ -33,46 +35,27 @@ SRC_JPU="${S}/codaj12/jdi/linux/driver"
 SRC_VENC="${S}/wave420l/code/vdi/linux/driver"
 SRC_VDEC="${S}/wave511/code/vdi/linux/driver"
 
-MODULE_NAMES="
-	jpu(extra:${SRC_JPU}:${SRC_JPU})
-	venc(extra:${SRC_VENC}:${SRC_VENC})
-	vdec(extra:${SRC_VDEC}:${SRC_VDEC})
-"
 
-BUILD_TARGETS="clean default"
-BUILD_PARAMS="KERNELDIR='${KERNEL_DIR}'"
+
+#BUILD_TARGETS="clean default"
+#BUILD_PARAMS="KERNELDIR='${KERNEL_DIR}'"
+
+src_compile() {
+	local modlist=(
+		jpu=extra:${SRC_JPU}:${SRC_JPU}
+		venc=extra:${SRC_VENC}:${SRC_VENC}
+		vdec=extra:${SRC_VDEC}:${SRC_VDEC}
+	)
+	local modargs=(
+		KERNELDIR="${KERNEL_DIR}"
+	)
+
+	linux-mod-r1_src_compile
+}
 
 
 src_install() {
-	linux-mod_src_install
-
-	if use modules-sign; then
-		einfo "Signing modules..."
-
-		sign_script="${KERNEL_DIR}/scripts/sign-file"
-		key_pem="${KERNEL_DIR}/certs/signing_key.pem"
-		key_x509="${KERNEL_DIR}/certs/signing_key.x509"
-
-		[[ -f "${sign_script}" ]] || die "sign script does not exist"
-		[[ -f "${key_pem}"     ]] || die "pem key does not exist"
-		[[ -f "${key_x509}"    ]] || die "x509 key does not exist"
-
-		ins_dir="${INSTALL_MOD_PATH}/lib/modules/${KV_FULL}/extra"
-
-		einfo "Signing JPU"
-		$sign_script sha1 $key_pem $key_x509 "${ins_dir}/jpu.ko" \
-			|| die "Failed to sign JPU"
-
-		einfo "Signing VENC"
-		$sign_script sha1 $key_pem $key_x509 "${ins_dir}/venc.ko" \
-			|| die "Failed to sign VENC"
-
-		einfo "Signing VDEC"
-		$sign_script sha1 $key_pem $key_x509 "${ins_dir}/jpu.ko" \
-			|| die "Failed to sign JPU"
-
-	fi
-
+	linux-mod-r1_src_install
 
 	einfo "Installing firmware"
 	
@@ -106,6 +89,7 @@ src_install() {
 }
 
 pkg_postinst() {
+	linux-mod-r1_pkg_postinst
 	udev_reload
 
 
