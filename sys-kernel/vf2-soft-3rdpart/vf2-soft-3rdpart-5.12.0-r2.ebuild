@@ -77,7 +77,7 @@ src_install() {
 	elog "Installing firmware"
 	
 	cd "${S}"
-	insopts -Dm644
+	insopts -m644
 
 	insinto /lib/firmware
 
